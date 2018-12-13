@@ -5,7 +5,7 @@ Use a trained pastiche net to stylize images.
 from __future__ import print_function
 import os
 import argparse
-
+import importlib
 import numpy as np
 import tensorflow as tf
 import keras
@@ -17,7 +17,7 @@ import yaml
 import time
 from scipy.misc import imsave
 
-from model import pastiche_model
+importlib.reload(model.pastiche_model)
 
 if __name__ == '__main__':
 
