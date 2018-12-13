@@ -7,7 +7,7 @@ import numpy as np
 import h5py
 import yaml
 from PIL import Image
-from keras.applications import vgg16
+from keras_applications import vgg16
 from keras import backend as K
 
 def config_gpu(gpu, allow_growth):

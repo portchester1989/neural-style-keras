@@ -8,7 +8,7 @@ import h5py
 
 import keras
 import keras.backend as K
-from keras.applications import vgg16
+from keras_applications import vgg16
 
 from training import get_style_features
 from utils import preprocess_image_scale, config_gpu, std_input_list

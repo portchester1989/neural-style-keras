@@ -4,12 +4,11 @@ This module contains functions for building the pastiche model.
 
 import keras
 from keras.models import Model
-from keras.layers import (Convolution2D, Activation, UpSampling2D,
-                          ZeroPadding2D, Input, BatchNormalization,
-                          merge, Lambda)
+from keras.layers import (Conv2D, Activation, UpSampling2D,
+                          ZeroPadding2D, Input, BatchNormalization,add, Lambda)
 from layers import (ReflectionPadding2D, InstanceNormalization,
                     ConditionalInstanceNormalization)
-from keras.initializations import normal
+from keras.initializers import normal
 
 # Initialize weights with normal distribution with std 0.01
 def weights_init(shape, name=None, dim_ordering=None):
@@ -24,7 +23,7 @@ def conv(x, n_filters, kernel_size=3, stride=1, relu=True, nb_classes=1, targets
         raise ValueError('Expected odd kernel size.')
     pad = (kernel_size - 1) / 2
     o = ReflectionPadding2D(padding=(pad, pad))(x)
-    o = Convolution2D(n_filters, kernel_size, kernel_size,
+    o = Conv2D(n_filters, kernel_size, kernel_size,
                       subsample=(stride, stride), init=weights_init)(o)
     # o = BatchNormalization()(o)
     if nb_classes > 1:
@@ -44,7 +43,7 @@ def residual_block(x, n_filters, nb_classes=1, targets=None):
     # Linear activation on second conv
     o = conv(o, n_filters, relu=False, nb_classes=nb_classes, targets=targets)
     # Shortcut connection
-    o = merge([o, x], mode='sum')
+    o = add([o, x])
     return o
 
 
