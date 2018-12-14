@@ -17,7 +17,7 @@ import yaml
 import time
 from scipy.misc import imsave
 
-importlib.reload(model.pastiche_model)
+from model import pastiche_model
 
 if __name__ == '__main__':
 
